@@ -23,7 +23,7 @@ php artisan sheaf:install autocomplete
             label="Search Countries" 
             placeholder="Type to search..."
             leftIcon="map-pin"
-            >
+        >
                 <x-ui.autocomplete.item>United States</x-ui.autocomplete.item>
                 <x-ui.autocomplete.item>United Kingdom</x-ui.autocomplete.item>
                 <x-ui.autocomplete.item>Canada</x-ui.autocomplete.item>
@@ -265,14 +265,14 @@ Show different states for validation feedback.
 ```
 
 
-## Component Props
+## Component Prop
+
+### ui.autocomplete
 
 | Prop Name      | Type    | Default       | Required | Description                                                                  |
 | -------------- | ------- | ------------- | -------- | ---------------------------------------------------------------------------- |
 | `label`        | string  | `''`          | No       | Label text displayed above the input                                         |
 | `name`         | string  | `wire:model`  | No       | Name attribute for the input (auto-detected from wire:model)                |
-| `type`         | string  | `text`        | No       | Input type attribute                                                         |
-| `description`  | string  | `''`          | No       | Helper text displayed below the input                                        |
 | `placeholder`  | string  | `Search...`   | No       | Placeholder text for the input                                               |
 | `variant`      | string  | `default`     | No       | Visual variant (currently only `default` supported)                         |
 | `disabled`     | boolean | `false`       | No       | Whether the input is disabled                                                |
@@ -280,6 +280,13 @@ Show different states for validation feedback.
 | `invalid`      | boolean | `false`       | No       | Whether to show invalid/error state styling                                  |
 | `leftIcon`         | string  | `''`          | No       | left side of the icon name                                                            |
 | `rightIcon` | string  | `''`          | No       | Right side of the icon name                                                           |
-| `clearable`    | boolean | `false`       | No       | Whether to show a clear button                                               |
-| `inputClasses`   | string  | `''`          | No       | Additional CSS classes for the input element                                 |
-| `slot`         | mixed   | `''`          | Yes      | Dropdown items using `<div data-slot="autocomplete-item">` elements         |
+| `copyable` | boolean | `false` | No | Add copy to clipboard button |
+| `clearable` | boolean | `false` | No | Add clear input button |
+| `revealable` | boolean | `false` | No | Add password reveal toggle |
+
+### ui.autocomplete.item
+| Prop         | Type      | Default       | Description                                                                 |
+| ------------ | --------- | ------------- | --------------------------------------------------------------------------- |
+| `value`      | `string`  | slot content  | The value bound to the model on selection. Falls back to slot text content. |
+| `label`      | `string`  | slot content  | Display label used in search filtering. Falls back to slot text content.    |
+| `disabled`   | `boolean` | `false`       | Prevents the item from being selected.                                      |
