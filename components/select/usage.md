@@ -13,6 +13,13 @@ Use the [sheaf artisan command](/docs/guides/cli-installation#content-component-
 php artisan sheaf:install select
 ```
 
+and then import the `select.js` file in your js entry point:
+
+```js
+// app.js
+import './components/select.js';
+```
+
 > Once installed, you can use the `<x-ui.select />` component in any Blade view.
 
 ## Usage
@@ -49,11 +56,11 @@ php artisan sheaf:install select
 
 To use with Livewire you only need to use `wire:model="property"` to bind your input state:
 
-```html
+```blade
 <x-ui.select 
     wire:model="country"
     placeholder="Choose a country..."
-    >
+>
         <x-ui.select.option value="us">United States</x-ui.select.option>
         <x-ui.select.option value="uk">United Kingdom</x-ui.select.option>
         <x-ui.select.option value="ca">Canada</x-ui.select.option>
@@ -67,13 +74,13 @@ To use with Livewire you only need to use `wire:model="property"` to bind your i
 
 You can use it outside Livewire with just Alpine (and Blade):
 
-```html
+```blade
 <div x-data="{ country: '' }">
     <x-ui.select 
         class="w-3xs"
         x-model="country"
         placeholder="Choose a country..."
-        >
+    >
             <x-ui.select.option value="us">United States</x-ui.select.option>
             <x-ui.select.option value="uk">United Kingdom</x-ui.select.option>
             <x-ui.select.option value="ca">Canada</x-ui.select.option>
@@ -84,7 +91,69 @@ You can use it outside Livewire with just Alpine (and Blade):
 </div>
 ```
 
-### Select with Icons
+### Size 
+the default size of the select is designed to align up with the input component, but also we have `sm` size: 
+
+@blade
+<x-demo class=" justify-center">
+    <div class="space-y-4">
+        <div
+            class="max-x-2xs mx-auto"
+            x-data="{
+                members:[]
+            }"
+        >
+            <x-ui.select 
+                class="w-3xs"
+                placeholder="Team members"
+                icon="users"
+                x-model="members"
+                searchable
+                multiple
+                clearable
+                >
+                    <x-ui.select.option value="john" icon="user">John Doe</x-ui.select.option>
+                    <x-ui.select.option value="jane" icon="user">Jane Smith</x-ui.select.option>
+                    <x-ui.select.option value="mike" icon="user">Mike Johnson</x-ui.select.option>
+                    <x-ui.select.option value="sarah" icon="user">Sarah Wilson</x-ui.select.option>
+                    <x-ui.select.option value="david" icon="user">David Brown</x-ui.select.option>
+                    <x-ui.select.option value="lisa" icon="user">Lisa Davis</x-ui.select.option>
+            </x-ui.select>
+        </div>
+        <div
+            class="max-x-2xs mx-auto"
+            x-data="{
+                members:[]
+            }"
+        >
+            <x-ui.select 
+                class="w-3xs"
+                placeholder="Team members"
+                icon="users"
+                x-model="members"
+                size="sm"
+                searchable
+                multiple
+                clearable
+                >
+                    <x-ui.select.option value="john" icon="user">John Doe</x-ui.select.option>
+                    <x-ui.select.option value="jane" icon="user">Jane Smith</x-ui.select.option>
+                    <x-ui.select.option value="mike" icon="user">Mike Johnson</x-ui.select.option>
+                    <x-ui.select.option value="sarah" icon="user">Sarah Wilson</x-ui.select.option>
+                    <x-ui.select.option value="david" icon="user">David Brown</x-ui.select.option>
+                    <x-ui.select.option value="lisa" icon="user">Lisa Davis</x-ui.select.option>
+            </x-ui.select>
+        </div>
+    </div>
+</x-demo>
+@endblade
+
+```blade
+<x-ui.select size="sm">
+    <!-- options -->
+</x-ui.select>
+```
+### Icons
 
 Enhance the select with leading icons and option-specific icons for better visual communication.
 
@@ -95,7 +164,7 @@ Enhance the select with leading icons and option-specific icons for better visua
             class="w-3xs"
             placeholder="Choose status..."
             icon="flag"
-           >
+        >
                 <x-ui.select.option value="active" icon="check-circle">Active</x-ui.select.option>
                 <x-ui.select.option value="pending" icon="clock">Pending</x-ui.select.option>
                 <x-ui.select.option value="inactive" icon="x-circle">Inactive</x-ui.select.option>
@@ -105,11 +174,12 @@ Enhance the select with leading icons and option-specific icons for better visua
 </x-demo>
 @endblade
 
-```html
+```blade
 <x-ui.select 
     placeholder="Choose status..."
     icon="flag"
-    wire:model="selectedStatus">
+    wire:model="selectedStatus"
+>
         <x-ui.select.option value="active" icon="check-circle">Active</x-ui.select.option>
         <x-ui.select.option value="pending" icon="clock">Pending</x-ui.select.option>
         <x-ui.select.option value="inactive" icon="x-circle">Inactive</x-ui.select.option>
@@ -129,7 +199,7 @@ Add search functionality to easily find options in large lists.
             placeholder="Find a city..."
             icon="map-pin"
             searchable
-            >
+        >
                 <x-ui.select.option value="nyc">New York City</x-ui.select.option>
                 <x-ui.select.option value="london">London</x-ui.select.option>
                 <x-ui.select.option value="paris">Paris</x-ui.select.option>
@@ -141,18 +211,14 @@ Add search functionality to easily find options in large lists.
 </x-demo>
 @endblade
 
-```html
+```blade
 <x-ui.select 
     placeholder="Find a city..."
     icon="map-pin"
-    searchable
-    wire:model="selectedCity">
-        <x-ui.select.option value="nyc">New York City</x-ui.select.option>
-        <x-ui.select.option value="london">London</x-ui.select.option>
-        <x-ui.select.option value="paris">Paris</x-ui.select.option>
-        <x-ui.select.option value="tokyo">Tokyo</x-ui.select.option>
-        <x-ui.select.option value="sydney">Sydney</x-ui.select.option>
-        <x-ui.select.option value="berlin">Berlin</x-ui.select.option>
+    wire:model="selectedCity"
+    {+searchable+}
+>
+    <!-- options -->
 </x-ui.select>
 ```
 
@@ -173,9 +239,10 @@ Allow users to select multiple options with visual feedback.
             placeholder="Choose your skills..."
             icon="academic-cap"
             multiple
+            searchable
             x-model="selectedSkills"
             clearable
-            >
+        >
                 <x-ui.select.option value="php" icon="code-bracket">PHP</x-ui.select.option>
                 <x-ui.select.option value="javascript" icon="bolt">JavaScript</x-ui.select.option>
                 <x-ui.select.option value="python" icon="variable">Python</x-ui.select.option>
@@ -187,11 +254,12 @@ Allow users to select multiple options with visual feedback.
 </x-demo>
 @endblade
 
-```html
+```blade
 <x-ui.select 
     placeholder="Choose your skills..."
     icon="academic-cap"
-    multiple
+    searchable
+    {+multiple+}
     clearable
     wire:model="selectedSkills">
         <x-ui.select.option value="php" icon="code-bracket">PHP</x-ui.select.option>
@@ -200,59 +268,52 @@ Allow users to select multiple options with visual feedback.
         <x-ui.select.option value="react" icon="cube">React</x-ui.select.option>
         <x-ui.select.option value="vue" icon="sparkles">Vue.js</x-ui.select.option>
         <x-ui.select.option value="laravel" icon="academic-cap">Laravel</x-ui.select.option>
-</x-ui.select>reduxui
+</x-ui.select>
 ```
 
-### Searchable Multiple Selection
-
-Combine search functionality with multiple selection for the best user experience.
-
+### Pillbox Selection
 @blade
 <x-demo class="flex justify-center">
     <div
         class="max-x-2xs mx-auto"
         x-data="{
-            members:[]
+            selectedSkills:[]
         }"
     >
         <x-ui.select 
             class="w-3xs"
-            placeholder="Search and select members..."
-            icon="users"
-            x-model="members"
+            placeholder="Choose your skills..."
+            icon="academic-cap"
             searchable
             multiple
+            x-model="selectedSkills"
             clearable
-            >
-                <x-ui.select.option value="john" icon="user">John Doe</x-ui.select.option>
-                <x-ui.select.option value="jane" icon="user">Jane Smith</x-ui.select.option>
-                <x-ui.select.option value="mike" icon="user">Mike Johnson</x-ui.select.option>
-                <x-ui.select.option value="sarah" icon="user">Sarah Wilson</x-ui.select.option>
-                <x-ui.select.option value="david" icon="user">David Brown</x-ui.select.option>
-                <x-ui.select.option value="lisa" icon="user">Lisa Davis</x-ui.select.option>
+            pillbox
+        >
+                <x-ui.select.option value="php" icon="code-bracket">PHP</x-ui.select.option>
+                <x-ui.select.option value="javascript" icon="bolt">JavaScript</x-ui.select.option>
+                <x-ui.select.option value="python" icon="variable">Python</x-ui.select.option>
+                <x-ui.select.option value="react" icon="cube">React</x-ui.select.option>
+                <x-ui.select.option value="vue" icon="sparkles">Vue.js</x-ui.select.option>
+                <x-ui.select.option value="laravel" icon="academic-cap">Laravel</x-ui.select.option>
         </x-ui.select>
     </div>
 </x-demo>
 @endblade
 
-```html
+```blade
 <x-ui.select 
-    class="w-3xs"
-    placeholder="Search and select members..."
-    icon="users"
-    wire:model="members"
-    searchable
+    placeholder="Choose your skills..."
+    icon="academic-cap"
     multiple
+    {+pillbox+}
     clearable
-    >
-        <x-ui.select.option value="john" icon="user">John Doe</x-ui.select.option>
-        <x-ui.select.option value="jane" icon="user">Jane Smith</x-ui.select.option>
-        <x-ui.select.option value="mike" icon="user">Mike Johnson</x-ui.select.option>
-        <x-ui.select.option value="sarah" icon="user">Sarah Wilson</x-ui.select.option>
-        <x-ui.select.option value="david" icon="user">David Brown</x-ui.select.option>
-        <x-ui.select.option value="lisa" icon="user">Lisa Davis</x-ui.select.option>
+    wire:model="selectedSkills"
+>
+    <!-- options -->
 </x-ui.select>
 ```
+
 
 ### Validation States
 
@@ -274,7 +335,7 @@ Show different states for validation feedback.
 </x-demo>
 @endblade
 
-```html
+```blade
 <!-- Invalid state -->
 <x-ui.select 
     placeholder="Choose option..."
@@ -286,7 +347,7 @@ Show different states for validation feedback.
 </x-ui.select>
 ```
 
-### Disabled State
+### Disabled State and Option Specific 
 
 @blade
 <x-demo class="flex justify-center">
@@ -295,7 +356,7 @@ Show different states for validation feedback.
             class="w-3xs"
             placeholder="This is disabled..."
             disabled
-            >
+        >
                 <x-ui.select.option value="option1">Option 1</x-ui.select.option>
                 <x-ui.select.option value="option2">Option 2</x-ui.select.option>
         </x-ui.select>
@@ -303,7 +364,7 @@ Show different states for validation feedback.
 </x-demo>
 @endblade
 
-```html
+```blade
 <x-ui.select 
     placeholder="This is disabled..."
     disabled
@@ -319,7 +380,7 @@ Show different states for validation feedback.
 You can react to selection changes by listening to the `@change` event. This is useful when you need to trigger side effects, validate selections, or update other parts of your UI based on the selected value.
 The selected value is available in `$event.detail.value`:
 
-```html
+```blade
 <div x-data="{ country: '' }">
     <x-ui.select 
         class="w-3xs"
@@ -400,7 +461,7 @@ public $categories = [
 ];
 ```
 
-```html
+```blade
 <x-ui.select 
     placeholder="Choose categories..."
     multiple
@@ -458,7 +519,7 @@ This ensures Livewire can properly track and re-render the DOM when the data cha
 
 ### Conditional Options
 
-```html
+```blade
 <x-ui.select 
     placeholder="Choose a plan..."
     wire:model="selectedPlan">

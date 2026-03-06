@@ -12,7 +12,7 @@ Use the [sheaf artisan command](/docs/guides/cli-installation#content-component-
 ```bash
 php artisan sheaf:install autocomplete
 ```
-import the `autocomplete.js` file in your js entry point:
+and then import the `autocomplete.js` file in your js entry point:
 
 ```js
 // app.js
