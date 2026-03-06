@@ -12,7 +12,12 @@ Use the [sheaf artisan command](/docs/guides/cli-installation#content-component-
 ```bash
 php artisan sheaf:install autocomplete
 ```
+import the `autocomplete.js` file in your js entry point:
 
+```js
+// app.js
+import './components/autocomplete.js';
+```
 > Once installed, you can use the `<x-ui.autocomplete />` component in any Blade view.
 
 ## Usage
@@ -263,6 +268,41 @@ Show different states for validation feedback.
     wire:model="readonlyValue">
         <x-ui.autocomplete.item>Option 1</x-ui.autocomplete.item>
         <x-ui.autocomplete.item>Option 2</x-ui.autocomplete.item>
+</x-ui.autocomplete>
+```
+### Disabled  Individual Items
+
+@blade
+<x-demo>
+    <div class="w-full max-w-3xs mx-auto space-y-4">
+        <x-ui.autocomplete 
+            placeholder="have a disabled item ..."
+        >
+            <x-ui.autocomplete.item>United States</x-ui.autocomplete.item>
+            <x-ui.autocomplete.item disabled>United Kingdom</x-ui.autocomplete.item>
+            <x-ui.autocomplete.item>Canada</x-ui.autocomplete.item>
+            <x-ui.autocomplete.item>Australia</x-ui.autocomplete.item>
+            <x-ui.autocomplete.item>Germany</x-ui.autocomplete.item>
+            <x-ui.autocomplete.item>France</x-ui.autocomplete.item>
+        </x-ui.autocomplete>
+    </div>
+</x-demo>
+@endblade
+
+```blade
+<x-ui.autocomplete 
+    placeholder="have a disabled item ..."
+>
+    <x-ui.autocomplete.item>United States</x-ui.autocomplete.item>
+    <x-ui.autocomplete.item 
+        disabled
+    > 
+        United Kingdom
+    </x-ui.autocomplete.item>
+    <x-ui.autocomplete.item>Canada</x-ui.autocomplete.item>
+    <x-ui.autocomplete.item>Australia</x-ui.autocomplete.item>
+    <x-ui.autocomplete.item>Germany</x-ui.autocomplete.item>
+    <x-ui.autocomplete.item>France</x-ui.autocomplete.item>
 </x-ui.autocomplete>
 ```
 
