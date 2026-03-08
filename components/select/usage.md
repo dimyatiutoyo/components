@@ -1,6 +1,6 @@
 ---
 name: select
-new: [create option, size, custom slot, server-side search with livewire, pillbox selection, create option with modal, option specific disabled state ]
+new: [create option, size, custom slot,separator, groups, server-side search with livewire, pillbox selection, create option with modal, option specific disabled state ]
 ---
 
 ## Introduction
@@ -155,6 +155,84 @@ The select comes in two sizes. The default size is designed to align with the `i
     <!-- options -->
 </x-ui.select>
 ```
+
+
+### Groups
+
+Use `<x-ui.select.group>` to organize related options under a labeled heading. Groups are purely visual — they don't affect value behavior.
+
+@blade
+<x-demo class="flex justify-center">
+    <div class="max-x-2xs mx-auto">
+        <x-ui.select
+            class="w-3xs"
+            placeholder="Assign member..."
+            icon="users"
+            searchable
+        >
+            <x-ui.select.option value="john" icon="user">John Doe</x-ui.select.option>
+            <x-ui.select.separator />
+            <x-ui.select.group label="Design Team">
+                <x-ui.select.option value="jane" icon="user">Jane Smith</x-ui.select.option>
+                <x-ui.select.option value="mike" icon="user">Mike Johnson</x-ui.select.option>
+            </x-ui.select.group>
+            <x-ui.select.group label="Engineering Team">
+                <x-ui.select.option value="sarah" icon="user">Sarah Wilson</x-ui.select.option>
+                <x-ui.select.option value="david" icon="user">David Brown</x-ui.select.option>
+            </x-ui.select.group>
+        </x-ui.select>
+    </div>
+</x-demo>
+@endblade
+
+```blade
+<x-ui.select wire:model="member" placeholder="Assign member...">
+    <x-ui.select.option value="john">John Doe</x-ui.select.option>
+    <x-ui.select.separator />
+    <x-ui.select.group label="Design Team">
+        <x-ui.select.option value="jane">Jane Smith</x-ui.select.option>
+        <x-ui.select.option value="mike">Mike Johnson</x-ui.select.option>
+    </x-ui.select.group>
+    <x-ui.select.group label="Engineering Team">
+        <x-ui.select.option value="sarah">Sarah Wilson</x-ui.select.option>
+        <x-ui.select.option value="david">David Brown</x-ui.select.option>
+    </x-ui.select.group>
+</x-ui.select>
+```
+
+### Separator
+
+Use `<x-ui.select.separator>` to render a thin horizontal rule between options or groups for visual separation.
+
+@blade
+<x-demo class="flex justify-center">
+    <div class="max-x-2xs mx-auto">
+        <x-ui.select
+            class="w-3xs"
+            placeholder="Choose status..."
+            icon="flag"
+            searchable
+        >
+            <x-ui.select.option value="active" icon="check-circle">Active</x-ui.select.option>
+            <x-ui.select.option value="pending" icon="clock">Pending</x-ui.select.option>
+            <x-ui.select.separator />
+            <x-ui.select.option value="inactive" icon="x-circle">Inactive</x-ui.select.option>
+            <x-ui.select.option value="archived" icon="archive-box">Archived</x-ui.select.option>
+        </x-ui.select>
+    </div>
+</x-demo>
+@endblade
+
+```blade
+<x-ui.select wire:model="status" placeholder="Choose status...">
+    <x-ui.select.option value="active">Active</x-ui.select.option>
+    <x-ui.select.option value="pending">Pending</x-ui.select.option>
+    <x-ui.select.separator />
+    <x-ui.select.option value="inactive">Inactive</x-ui.select.option>
+    <x-ui.select.option value="archived">Archived</x-ui.select.option>
+</x-ui.select>
+```
+
 
 
 ### Custom Slot
