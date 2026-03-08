@@ -1,5 +1,6 @@
 ---
 name: select
+new: [create option, size, custom slot, server-side search with livewire, pillbox selection, create option with modal, option specific disabled state ]
 ---
 
 ## Introduction
@@ -40,7 +41,7 @@ import './components/select.js';
             searchable
             multiple
             clearable
-            >
+        >
                 <x-ui.select.option value="john" icon="user">John Doe</x-ui.select.option>
                 <x-ui.select.option value="jane" icon="user">Jane Smith</x-ui.select.option>
                 <x-ui.select.option value="mike" icon="user">Mike Johnson</x-ui.select.option>
@@ -429,9 +430,6 @@ When no results match, you can offer the user the ability to create a new entry 
     @endforeach
 </x-ui.select>
 ```
-
-Here's the complete updated docs section:
-
 ### Create Option With Modal
 
 You can open a modal to create a new option by passing a `modal` prop with the modal's ID to `<x-ui.select.option.create>`. This is useful when creation requires a form with multiple fields.
@@ -608,7 +606,7 @@ Show different states for validation feedback.
 </x-ui.select>
 ```
 
-### Disabled State and Option Specific 
+### Disabled State
 
 @blade
 <x-demo class="flex justify-center">
@@ -632,6 +630,36 @@ Show different states for validation feedback.
     wire:model="disabledValue">
         <x-ui.select.option value="option1">Option 1</x-ui.select.option>
         <x-ui.select.option value="option2">Option 2</x-ui.select.option>
+</x-ui.select>
+```
+### Option Specific Disabled State 
+
+@blade
+<x-demo class="flex justify-center">
+    <div class="max-x-2xs mx-auto">
+        <x-ui.select 
+            class="w-3xs"
+            placeholder="This is disabled..."
+        >
+            <x-ui.select.option value="option1">Option 1</x-ui.select.option>
+            <x-ui.select.option value="option2" disabled>Option 2</x-ui.select.option>
+            <x-ui.select.option value="option3">Option 3</x-ui.select.option>
+            <x-ui.select.option value="option4" disabled>Option 4</x-ui.select.option>
+        </x-ui.select>
+    </div>
+</x-demo>
+@endblade
+
+```blade
+<x-ui.select 
+    placeholder="This is disabled..."
+    disabled
+    wire:model="disabledValue"
+>
+    <x-ui.select.option value="option1">Option 1</x-ui.select.option>
+    <x-ui.select.option value="option2" disabled>Option 2</x-ui.select.option>
+    <x-ui.select.option value="option3">Option 3</x-ui.select.option>
+    <x-ui.select.option value="option4" disabled>Option 4</x-ui.select.option>
 </x-ui.select>
 ```
 
