@@ -427,7 +427,7 @@ Add search functionality to easily find options in large lists.
 
 ### Server-side Search with Livewire
 
-For large datasets, you can replace the built-in client-side search with a fully server-driven one by passing a custom `search` slot. Wire it to a Livewire property and the select will delegate filtering entirely to your component.
+For large datasets, replace the built-in client-side search with a server-driven one by binding the input to a Livewire property. Filtering is delegated entirely to your backend, including empty state handling.
 
 ```blade
 <x-ui.select 
@@ -436,20 +436,29 @@ For large datasets, you can replace the built-in client-side search with a fully
     searchable
     multiple
 >
-    <x-slot:search>
+    <!-- bind the query state -->
+{+    <x-slot:search>
         <x-ui.select.search wire:model.live="query" />
-    </x-slot>
+    </x-slot>+}
+    <!-- handle the empty state -->
+{+    @if (!$components->count())
+        <x-ui.select.option.empty>
+            No Component Found                        
+        </x-ui.select.option.empty>
+    @endif+}
 
     @foreach ($components as $item)
         <x-ui.select.option 
-            wire:key="{{ $item->server_name }}" 
-            value="{{ $item->server_name }}"
+            wire:key="{{ $item->id }}" 
+            value="{{ $item->id }}"
         >
             {{ $item->name }}
         </x-ui.select.option>
     @endforeach
 </x-ui.select>
 ```
+
+> you can't use the `$component` variable in the blade template, that's why we rename it  `$item`
 
 **backend example**
 ```php
@@ -489,9 +498,9 @@ When no results match, you can offer the user the ability to create a new entry 
 
     @if (!$components->count())
         @if (strlen($query) > 3)
-            {+<x-ui.select.option.create wire:click="createComponent">+}
+{+              <x-ui.select.option.create wire:click="createComponent">
                 Create "<span wire:text="query"></span>"
-            {+</x-ui.select.option.create>+}
+            </x-ui.select.option.create>+}
         @else
             <x-ui.select.empty>
                 No results found
@@ -499,16 +508,19 @@ When no results match, you can offer the user the ability to create a new entry 
         @endif
     @endif
 
-    @foreach ($components as $component)
+    @foreach ($components as $item)
         <x-ui.select.option 
-            wire:key="{{ $component->server_name }}" 
-            value="{{ $component->server_name }}"
+            wire:key="{{ $item->id }}" 
+            value="{{ $item->id }}"
         >
-            {{ $component->name }}
+            {{ $item->name }}
         </x-ui.select.option>
     @endforeach
 </x-ui.select>
 ```
+
+> in this case we let the user to create new option only if the query's length greatet than 3 characters, that's mean it totally up to you if you want such condition or not
+
 ### Create Option With Modal
 
 You can open a modal to create a new option by passing a `modal` prop with the modal's ID to `<x-ui.select.option.create>`. This is useful when creation requires a form with multiple fields.
@@ -526,7 +538,9 @@ You can open a modal to create a new option by passing a `modal` prop with the m
 
     @if (!$components->count())
         @if (strlen($query) > 3)
-            <x-ui.select.option.create {+modal="create-component"+}>
+            <x-ui.select.option.create
+{+                  modal="create-component"+}
+            >
                 Create "<span wire:text="query"></span>"
             </x-ui.select.option.create>
         @else
@@ -536,12 +550,12 @@ You can open a modal to create a new option by passing a `modal` prop with the m
         @endif
     @endif
 
-    @foreach ($components as $component)
+    @foreach ($components as $item)
         <x-ui.select.option 
-            wire:key="{{ $component->server_name }}" 
-            value="{{ $component->server_name }}"
+            wire:key="{{ $item->server_name }}" 
+            value="{{ $item->server_name }}"
         >
-            {{ $component->name }}
+            {{ $item->name }}
         </x-ui.select.option>
     @endforeach
 </x-ui.select>

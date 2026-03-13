@@ -1,5 +1,6 @@
 ---
 name: autocomplete
+new: [disabled individual items]
 ---
 
 ## Introduction
@@ -270,7 +271,7 @@ Show different states for validation feedback.
         <x-ui.autocomplete.item>Option 2</x-ui.autocomplete.item>
 </x-ui.autocomplete>
 ```
-### Disabled  Individual Items
+### Disabled Individual Items
 
 @blade
 <x-demo>
