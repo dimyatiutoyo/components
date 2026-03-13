@@ -123,8 +123,8 @@ Add a leading icon to the trigger and per-option icons for better visual communi
 ```blade
 <x-ui.combobox
     placeholder="Choose status..."
-    icon="flag"
     wire:model="selectedStatus"
+    icon="flag"
 >
     <x-ui.combobox.option value="active" icon="check-circle">Active</x-ui.combobox.option>
     <x-ui.combobox.option value="pending" icon="clock">Pending</x-ui.combobox.option>
@@ -144,7 +144,6 @@ Use `<x-ui.combobox.group>` to visually organize related options under a labeled
             class="w-3xs"
             placeholder="Assign member..."
             icon="users"
-            wire:model="member"
         >
             <x-ui.combobox.option value="john" icon="user">John Doe</x-ui.combobox.option>
             <x-ui.combobox.separator />
@@ -165,11 +164,11 @@ Use `<x-ui.combobox.group>` to visually organize related options under a labeled
 <x-ui.combobox wire:model="member" placeholder="Assign member...">
     <x-ui.combobox.option value="john">John Doe</x-ui.combobox.option>
     <x-ui.combobox.separator />
-    <x-ui.combobox.{+group label="Design Team"+}>
+    <x-ui.combobox.group label="Design Team">
         <x-ui.combobox.option value="jane">Jane Smith</x-ui.combobox.option>
         <x-ui.combobox.option value="mike">Mike Johnson</x-ui.combobox.option>
     </x-ui.combobox.group>
-    <x-ui.combobox.{+group label="Engineering Team"+}>
+    <x-ui.combobox.group label="Engineering Team">
         <x-ui.combobox.option value="sarah">Sarah Wilson</x-ui.combobox.option>
         <x-ui.combobox.option value="david">David Brown</x-ui.combobox.option>
     </x-ui.combobox.group>
@@ -189,7 +188,6 @@ Allow users to select multiple options. Selected values appear as tags inside th
         <x-ui.combobox
             class="w-3xs"
             placeholder="Choose your skills..."
-            icon="academic-cap"
             multiple
             x-model="selectedSkills"
             clearable
@@ -208,8 +206,7 @@ Allow users to select multiple options. Selected values appear as tags inside th
 ```blade
 <x-ui.combobox
     placeholder="Choose your skills..."
-    icon="academic-cap"
-    {+multiple+}
+{+    multiple+}
     clearable
     wire:model="selectedSkills"
 >
@@ -219,22 +216,6 @@ Allow users to select multiple options. Selected values appear as tags inside th
     <x-ui.combobox.option value="react" icon="cube">React</x-ui.combobox.option>
     <x-ui.combobox.option value="vue" icon="sparkles">Vue.js</x-ui.combobox.option>
     <x-ui.combobox.option value="laravel" icon="academic-cap">Laravel</x-ui.combobox.option>
-</x-ui.combobox>
-```
-
-### Pillbox Selection
-
-Use `pillbox` to render selected values as styled pill tags inside the input area instead of plain text tags.
-
-```blade
-<x-ui.combobox
-    placeholder="Choose your skills..."
-    multiple
-    {+pillbox+}
-    clearable
-    wire:model="selectedSkills"
->
-    <!-- options -->
 </x-ui.combobox>
 ```
 
@@ -398,67 +379,6 @@ React to selection changes with the `@change` event. The selected value is avail
 </div>
 ```
 
-## Advanced Examples
-
-### Handling Dynamic or Dependent Comboboxes
-
-When using dependent comboboxes (e.g. Country → State), add unique `wire:key` attributes to both the `<x-ui.combobox>` and each `<x-ui.combobox.option>` so Livewire can properly track and re-render the DOM when data changes.
-
-```blade
-<x-ui.combobox
-    wire:model.live="country_id"
-    placeholder="Choose country..."
->
-    <x-ui.combobox.option value="">Select Country</x-ui.combobox.option>
-    @foreach ($countries as $country)
-        <x-ui.combobox.option value="{{ $country->id }}">
-            {{ $country->name }}
-        </x-ui.combobox.option>
-    @endforeach
-</x-ui.combobox>
-
-<x-ui.combobox
-    wire:model.live="state_id"
-    :wire:key="'state-combobox-' . $country_id"
-    placeholder="Choose state..."
->
-    <x-ui.combobox.option value="">Select State</x-ui.combobox.option>
-    @foreach ($states as $state)
-        <x-ui.combobox.option :wire:key="'state-option-' . $state->id" value="{{ $state->id }}">
-            {{ $state->name }}
-        </x-ui.combobox.option>
-    @endforeach
-</x-ui.combobox>
-```
-
-### Max / Min Selection
-
-Constrain how many options a user can select with `maxSelection` and `minSelection`:
-
-```blade
-<x-ui.combobox
-    wire:model="tags"
-    placeholder="Choose up to 3 tags..."
-    multiple
-    clearable
-    :maxSelection="3"
->
-    <!-- options -->
-</x-ui.combobox>
-```
-
-When `disableUnSelectedOptionWhenReachingMax` is set, unselected options become non-interactive once the maximum is reached:
-
-```blade
-<x-ui.combobox
-    wire:model="tags"
-    multiple
-    :maxSelection="3"
-    {+disableUnSelectedOptionWhenReachingMax+}
->
-    <!-- options -->
-</x-ui.combobox>
-```
 
 ## Component Props
 
@@ -482,7 +402,6 @@ When `disableUnSelectedOptionWhenReachingMax` is set, unselected options become 
 | `triggerClass` | string | `null` | No | Additional CSS classes for the trigger |
 | `maxSelection` | number | `null` | No | Maximum number of selectable options (multiple mode) |
 | `minSelection` | number | `null` | No | Minimum number of required selections (multiple mode) |
-| `disableUnSelectedOptionWhenReachingMax` | boolean | `false` | No | Disables unselected options when `maxSelection` is reached |
 | `size` | string | `'default'` | No | Size variant (`'default'` or `'sm'`) |
 | `empty` | mixed | `null` | No | Custom empty state slot/content |
 | `loading` | mixed | `null` | No | Custom loading state slot/content |
