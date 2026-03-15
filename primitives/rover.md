@@ -12,20 +12,41 @@ It exposes a declarative directive API (`x-rover`, `x-rover:input`, `x-rover:opt
 
 ### CDN
 
+make sure to register it, before alpine start.
 ```html
-<script src="https://unpkg.com/alpinejs" defer></script>
-<script src="/path/to/rover.cdn.js" defer></script>
+<script src="https://unpkg.com/@sheaf/rover@latest/dist/cdn.min.js"></script>
+```
+### Bundle (recomended)
+
+```bash
+npm i @sheaf/rover
 ```
 
+### then register it as plugin 
 
-### As a plugin
+**when using livewire:**
+
+```js
+import {
+    Livewire,
+    Alpine,
+} from "../../vendor/livewire/livewire/dist/livewire.esm";
+
+import rover from "@sheaf/rover"
+
+Alpine.plugin(rover);
+
+Livewire.start();
+```
+
+**alpine only:**
 
 ```js
 import Alpine from 'alpinejs'
-import rover from './rover'
+import rover from "@sheaf/rover"
 
-Alpine.plugin(rover)
-Alpine.start()
+Alpine.plugin(rover);
+Alpine.start();
 ```
 
 ---

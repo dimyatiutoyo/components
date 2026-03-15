@@ -96,7 +96,6 @@ You can use it outside Livewire with just Alpine (and Blade):
         <x-ui.label>Search Products</x-ui.label>
         <x-ui.description>Search through our product catalog</x-ui.description>
         <x-ui.autocomplete 
-            x-model="product"
             placeholder="Find products..." 
         >
                 <x-ui.autocomplete.item>iPhone 15 Pro</x-ui.autocomplete.item>
