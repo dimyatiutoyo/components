@@ -405,7 +405,7 @@ Rover handles ARIA automatically when you use the directives correctly.
 
 > Rover does not set `aria-selected` for you — that's your component's job, since Rover doesn't know your selection model. Patch it in your `Alpine.effect` when `__state` changes.
 
----
+<!-- ---
 
 ## Other magics
 
@@ -428,7 +428,7 @@ Available inside an `x-rover:options` element.
 | `isOpen()` | Returns whether the parent root's `__isOpen` is true. |
 | `isStatic()` | Returns whether the root is marked as static (always open). |
 
----
+--- -->
 
 ## State attributes
 
@@ -442,52 +442,9 @@ Rover and its components communicate state through `data-*` attributes on option
 | `aria-selected="true/false"` | Selection state (set by your component) |
 | `style="display: none"` | Option is hidden by search filtering |
 
-```css
-[x-rover\:option][data-active] {
-  background: hsl(240 5% 15%);
-}
-
-[x-rover\:option][data-selected] {
-  font-weight: 500;
-}
-
-[x-rover\:option][data-selected][data-active] {
-  background: hsl(240 70% 25%);
-}
-```
-
----
-
-## Full example — searchable select
-
+**tailwind example for styling!** 
 ```html
-<div
-  x-rover
-  x-data="selectComponent({ model: 'selectedValue', livewire: $wire, livewireId: 'abc123', isLive: false, isMultiple: false })"
-  x-on:click.outside="handleClickAway($event.target)"
->
-
-  <!-- Trigger -->
-  <button x-rover:button x-ref="trigger" @click="handleButtonClick">
-    <span x-text="hasSelection ? selectedLabel : 'Pick an option'"></span>
-  </button>
-
-  <!-- Panel -->
-  <div x-show="__isOpen">
-
-    <!-- Search -->
-    <input x-rover:input type="text" placeholder="Search..." />
-
-    <!-- List -->
-    <ul x-rover:options>
-      <li x-rover:option value="apple"  data-label="Apple">Apple</li>
-      <li x-rover:option value="banana" data-label="Banana">Banana</li>
-      <li x-rover:option value="cherry" data-label="Cherry">Cherry</li>
-    </ul>
-
-    <p x-rover:empty>No results.</p>
-
-  </div>
-
-</div>
+<li x-rover:option class="data-active:bg-white/5 data-selected:bg-green-500/5">
+    <!--  -->
+</li>
 ```
