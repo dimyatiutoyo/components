@@ -284,9 +284,16 @@ The combobox is purpose-built for server-driven search. Because the input is alw
     placeholder="Search components..."
     multiple
 >
+    <!-- handle empty state yourself -->
 {+    <x-slot:search>
         <x-ui.combobox.input wire:model.live="query"/>
     </x-slot>+}
+    <!-- handle empty state yourself -->
+{+    @if (!$componens->count())
+        <x-ui.combobox.option.empty>
+            No Component Found                        
+        </x-ui.combobox.option.empty>
+    @endif+}
 
     @foreach ($components as $item)
         <x-ui.combobox.option
