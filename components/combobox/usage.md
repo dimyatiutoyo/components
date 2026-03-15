@@ -13,6 +13,8 @@ Use the [sheaf artisan command](/docs/guides/cli-installation#content-component-
 ```bash
 php artisan sheaf:install combobox
 ```
+> **Requires Rover Plugin.** This component is powered by the [Rover primitive](/docs/primitives/rover). Make sure it's installed and registered before using Component.
+
 
 and then import the `combobox.js` file in your JS entry point:
 

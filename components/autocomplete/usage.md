@@ -13,6 +13,9 @@ Use the [sheaf artisan command](/docs/guides/cli-installation#content-component-
 ```bash
 php artisan sheaf:install autocomplete
 ```
+
+> **Requires Rover Plugin.** This component is powered by the [Rover primitive](/docs/primitives/rover). Make sure it's installed and registered before using Component.
+
 and then import the `autocomplete.js` file in your js entry point:
 
 ```js
