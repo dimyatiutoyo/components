@@ -8,6 +8,8 @@ Rover is a lightweight Alpine.js engine that manages keyboard navigation, activa
 
 It exposes a declarative directive API (`x-rover`, `x-rover:input`, `x-rover:options`, etc.) and a programmatic magic API (`$rover`) that your component logic calls into.
 
+> by the way you can star the [github repository](https://github.com/sheafui/rover) 
+
 ## Installation
 
 ### CDN
