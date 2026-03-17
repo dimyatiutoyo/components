@@ -234,6 +234,60 @@ You can transform the overlay modal into a slideover using the `slideover` prop:
 </x-ui.modal>
 ```
 
+## Bare
+
+Sometimes you just need the modal shell, no heading, no padding, no close button. Pass `bare` to get raw modal functionality with full control over the content. for example you may use this for a command pallete
+
+@blade
+<x-demo>
+    <x-ui.modal.trigger id="bare-demo">
+        <x-ui.button>Open</x-ui.button>
+    </x-ui.modal.trigger>
+    <x-ui.modal id="bare-demo" bare width="sm">
+        <div class="">
+            <p class="text-sm text-neutral-600 dark:text-neutral-400">Full control over content.</p>
+        </div>
+    </x-ui.modal>
+</x-demo>
+@endblade
+```blade
+<x-ui.modal bare width="xl">
+    {{-- everything is yours --}}
+</x-ui.modal>
+```
+
+## Shortcut
+
+Pass `:shortcut` to `modal.trigger` to bind one or more keyboard shortcuts — Alpine's modifier syntax, no setup needed.
+
+@blade
+<x-demo>
+    <x-ui.modal.trigger id="shortcut-demo" :shortcut="['ctrl.k']">
+        <x-ui.input as="button" kbd="⌘K" placeholder="Search..." leftIcon="magnifying-glass" class="w-64!" />
+    </x-ui.modal.trigger>
+
+    <x-ui.modal id="shortcut-demo" width="xl">
+        <x-ui.command>
+            <x-ui.command.input clearable/>
+            <x-ui.command.items>
+                <x-ui.command.item icon="home" kbd="⌘H">Go to Dashboard</x-ui.command.item>
+                <x-ui.command.item icon="magnifying-glass" kbd="⌘F">Search Files</x-ui.command.item>
+            </x-ui.command.items>
+        </x-ui.command>
+    </x-ui.modal>
+</x-demo>
+@endblade
+
+```blade
+<x-ui.modal.trigger id="shortcut-exo" :shortcut="['ctrl.k', 'ctrl.o']">
+    <x-ui.input as="button" kbd="⌘K" placeholder="Search..." leftIcon="magnifying-glass" />
+</x-ui.modal.trigger>
+
+<x-ui.modal id="shortcut-exo" bare width="xl">
+    I am 
+</x-ui.modal>
+```
+
 ## Backdrop Options
 
 By default, the modal uses a small blur effect as backdrop. In addition, you can choose between `transparent` and `dark` variants:
