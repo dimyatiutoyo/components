@@ -42,9 +42,11 @@
     $hasLeftIcon = filled($leftIcon);
     
     $hasRightIconSlot = $rightIcon instanceof \Illuminate\View\ComponentSlot;
+
+    $asButton = $as === 'button';
     
     // Count icons including rightIcon slot
-    $iconCount = count(array_filter([$clearable, $copyable, $revealable, $rightIcon]));
+    $iconCount = count(array_filter([$clearable, $copyable, $revealable, ($rightIcon || $kbd)]));
 @endphp
 
 <div class="{{ Arr::toCssClasses(array_merge($classes, [$attributes->get('class')])) }}">
@@ -197,9 +199,14 @@
                 'focus:ring-2 focus:ring-offset-0 focus:outline-none',
                 'border-black/10 focus:border-black/15 focus:ring-neutral-900/15 dark:border-white/15 dark:focus:border-white/20 dark:focus:ring-neutral-100/15' => !$invalid,
                 'border-red-600/30 border-2 focus:border-red-600/30 focus:ring-red-600/20 dark:border-red-400/30 dark:focus:border-red-400/30 dark:focus:ring-red-400/20' => $invalid,
+                'cursor-pointer caret-transparent select-none' => $asButton,
             ])
             name="{{ $name }}"
             type="{{ $type }}"
+            @if($asButton) 
+                role="button"
+                autocomplete="off"
+            @endif
             data-slot="control"
             {{ $attributes->except('class') }}
             data-control-id="input" {{-- used for actions --}}
@@ -212,12 +219,16 @@
 
             {{-- This isn't a real input option, just an icon slotted as one. 
                 It's here purely to handle padding logic easly, don't judge me 🤓 --}}
-            @if ($rightIcon)
-                <div class="!text-neutral-500 dark:!text-neutral-500" data-slot="input-option">
-                    @if($hasRightIconSlot)
-                        {{ $rightIcon }}
-                    @else
-                        <x-ui.icon :name="$rightIcon" />
+            @if ($rightIcon || $kbd)
+                <div class="!text-neutral-500 dark:!text-neutral-500 " data-slot="input-option">
+                    @if($rightIcon)
+                        @if($hasRightIconSlot)
+                            {{ $rightIcon }}
+                        @else
+                            <x-ui.icon :name="$rightIcon" />
+                        @endif
+                    @elseif($kbd)
+                        <span class="font-mono text-sm flex mr-2 items-center justify-center">{{ $kbd }}</span>
                     @endif
                 </div>
             @endif

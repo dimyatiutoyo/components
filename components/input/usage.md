@@ -1,5 +1,6 @@
 ---
 name: 'input'
+new: [as button,kbd]
 ---
 
 # Input Component
@@ -690,7 +691,55 @@ When validation fails, the input automatically shows error styling.
     />
 </x-ui.field>
 ```
+## Kbd
 
+Display a keyboard shortcut hint inside the input. Useful for discoverable shortcuts like search or command palette triggers.
+
+@blade
+<x-demo>
+    <x-ui.input 
+        placeholder="Search..."
+        kbd="⌘K"
+        class="w-64!"
+    />
+</x-demo>
+@endblade
+```blade
+<x-ui.input 
+    placeholder="Search..."
+    kbd="⌘K"
+/>
+```
+
+> `kbd` is non-interactive and purely visual. It coexists with other action options like `clearable` or `rightIcon`.
+
+
+## As Button
+
+Renders the input as a read-only, clickable button while preserving full input semantics — useful for triggering date pickers, comboboxes, modals, or command palettes where the "input" is really just a trigger.
+
+@blade
+<x-demo class="flex flex-col gap-3">
+    <x-ui.input 
+        placeholder="Search anything..."
+        as="button"
+        kbd="⌘K"
+        leftIcon="magnifying-glass"
+        class="w-64!"
+    />
+</x-demo>
+@endblade
+
+```blade
+<x-ui.input 
+    placeholder="Search anything..."
+    as="button"
+    kbd="⌘K"
+    leftIcon="magnifying-glass"
+/>
+```
+
+> The underlying `<input>` is kept with `readonly` and `role="button"` — it remains form-compatible and accessible while behaving like a button.
 ## Input Masking
 
 Transform your input fields into smart, formatted text controls using Alpine.js's powerful mask plugin. The input component seamlessly integrates with Alpine's masking capabilities to provide real-time formatting as users type.
@@ -1164,7 +1213,7 @@ $money(input, decimal_separator, thousands_separator, precision)
 
 ## Component Props
 
-### Input Component Props
+### ui.input
 
 | Prop Name | Type | Default | Required | Description |
 |-----------|------|---------|----------|-------------|
@@ -1184,31 +1233,32 @@ $money(input, decimal_separator, thousands_separator, precision)
 | `copyable` | boolean | `false` | No | Add copy to clipboard button |
 | `clearable` | boolean | `false` | No | Add clear input button |
 | `revealable` | boolean | `false` | No | Add password reveal toggle |
-| `autocomplete` | string | - | No | HTML autocomplete attribute |
+| `kbd` | string | `null` | No | Add keybord hint |
+| `as="button"` | - | none | No | make it as button placeholder |
 | `class` | string | `''` | No | Additional CSS classes |
 
-### Field Component Props
+### ui.field
 
 | Prop Name | Type | Default | Required | Description |
 |-----------|------|---------|----------|-------------|
 | `required` | boolean | `false` | No | Whether field is required |
 | `disabled` | boolean | `false` | No | Whether field is disabled |
 
-### Label Component Props
+### ui.label
 
 | Prop Name | Type | Default | Required | Description |
 |-----------|------|---------|----------|-------------|
 | `text` | string | - | No | Label text (alternative to slot) |
 | `required` | boolean | `false` | No | Whether to show required indicator |
 
-### Error Component Props
+### ui.error
 
 | Prop Name | Type | Default | Required | Description |
 |-----------|------|---------|----------|-------------|
 | `name` | string | - | No | Field name to get errors from $errors bag |
 | `messages` | array | `[]` | No | Manual error messages |
 
-### Fieldset Component Props
+### ui.fieldset
 
 | Prop Name | Type | Default | Required | Description |
 |-----------|------|---------|----------|-------------|
