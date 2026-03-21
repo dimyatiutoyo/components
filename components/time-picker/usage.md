@@ -4,7 +4,7 @@ name: time-picker
 
 ## Introduction
 
-The `Time Picker` component is a **fully-featured**, **accessible** time selection dropdown with support for 12/24-hour formats, locale-aware display, interval control, unavailable time ranges, and multiple selection. It integrates seamlessly with Livewire via `wire:model` and Alpine via `x-model`.
+The `Time Picker` component is a **zero dependencies**, **fully-featured**, **accessible** time selection dropdown with support for 12/24-hour formats, locale-aware display, interval control, unavailable time ranges, and multiple selection. It integrates seamlessly with Livewire via `wire:model` and Alpine via `x-model`.
 
 ## Installation
 
