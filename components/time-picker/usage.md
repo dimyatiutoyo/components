@@ -238,13 +238,12 @@ By default the picker uses the browser locale (`navigator.language`). Override i
 
 ## Size
 
-The picker comes in three sizes. The default aligns with the standard `input` height for easy side-by-side use in forms.
+The picker comes in Two sizes. The default aligns with the standard `input` height for easy side-by-side use in forms.
 
 @blade
 <x-demo class="flex flex-col gap-3 items-center">
     <x-ui.time-picker size="default" placeholder="Default" class="w-48" />
     <x-ui.time-picker size="sm"      placeholder="Small"   class="w-48" />
-    <x-ui.time-picker size="xs"      placeholder="XSmall"  class="w-48" />
 </x-demo>
 @endblade
 
