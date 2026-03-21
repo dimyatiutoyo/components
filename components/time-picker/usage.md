@@ -384,7 +384,6 @@ public function getBookedSlotsProperty(): string
 | ---- | ---- | ------- | ----------- |
 | `wire:model` | string | — | Binds to a Livewire property. Value format: `H:i` (single) or `H:i,H:i` (multiple). Supports `.live` modifier. |
 | `format` | string | `'auto'` | Time display format. Options: `auto`, `12-hour`, `24-hour`. `auto` follows the browser locale. |
-| `mode` | string | `'single'` | Selection mode. Options: `single`, `multiple`. |
 | `multiple` | boolean | `false` | Shorthand for `mode="multiple"`. |
 | `interval` | integer | `30` | Minutes between each displayed slot. |
 | `min` | string | `null` | Earliest selectable time as `H:i` or `"now"`. |
