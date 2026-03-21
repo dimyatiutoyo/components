@@ -83,18 +83,18 @@ Attach the picker to a segmented `HH:MM` input for direct keyboard entry. Arrow 
 
 > In 12-hour locales, an AM/PM toggle appears automatically next to the minute segment.
 
-### Chips
+### Pills
 
-The chips trigger renders each selected time as a removable pill inside the trigger. Best used with `multiple`.
+The pills trigger renders each selected time as a removable pill inside the trigger. Best used with `multiple`.
 
 @blade
 <x-demo class="flex justify-center">
-    <x-ui.time-picker trigger="chips" multiple clearable class="w-56" />
+    <x-ui.time-picker trigger="pills" multiple clearable class="w-56" />
 </x-demo>
 @endblade
 
 ```blade
-<x-ui.time-picker trigger="chips" multiple clearable wire:model="times" />
+<x-ui.time-picker trigger="pills" multiple clearable wire:model="times" />
 ```
 
 ## Multiple Selection
@@ -255,7 +255,7 @@ The picker comes in Two sizes. The default aligns with the standard `input` heig
 
 ## Clearable
 
-Show a clear button when a value is selected. In `trigger="chips"` mode this clears all selected times at once.
+Show a clear button when a value is selected. In `trigger="pills"` mode this clears all selected times at once.
 
 ```blade
 <x-ui.time-picker clearable wire:model="time" />
@@ -306,13 +306,13 @@ Typical scheduling scenario: business hours, 30-minute slots, lunch blocked out.
 />
 ```
 
-### Multi-slot Scheduling with Chips
+### Multi-slot Scheduling with Pills
 
-Allow a user to pick multiple meeting slots displayed as chips:
+Allow a user to pick multiple meeting slots displayed as pills:
 
 ```blade
 <x-ui.time-picker
-    trigger="chips"
+    trigger="pills"
     multiple
     clearable
     :interval="30"
@@ -392,7 +392,7 @@ public function getBookedSlotsProperty(): string
 | `unavailable` | string | `null` | Comma-separated blocked times and/or ranges e.g. `"03:00,05:30-07:00"`. |
 | `open-to` | string | `null` | Scroll target on open as `H:i`. Falls back to selected time, then nearest to now. |
 | `locale` | string | `'auto'` | BCP-47 locale for display. `auto` uses `navigator.language`. |
-| `trigger` | string | `'button'` | Trigger variant. Options: `button`, `input`, `chips`. |
+| `trigger` | string | `'button'` | Trigger variant. Options: `button`, `input`, `pills`. |
 | `variant` | string | `'default'` | Option indicator style in multiple mode. Options: `default` (check icon), `checkbox`. |
 | `clearable` | boolean | `false` | Shows a clear button when a value is selected. Clears all in multiple mode. |
 | `placeholder` | string | `'Select a time'` | Placeholder text shown when no value is selected. Defaults to `'--:--'` for `trigger="input"`. |
