@@ -1,6 +1,5 @@
 @props([
     'id' => null,
-    'name' => $attributes->whereStartsWith('wire:model')->first() ?? $attributes->whereStartsWith('x-model')->first(),
     'minValue' => 0,
     'maxValue' => 100,
     'step' => null,
@@ -28,7 +27,6 @@
 ])
 
 @php
-
     // enable pips by pips props as well don't always override the pips mode
     if($pips && is_null($pipsMode)) $pipsMode = 'range';
     $componentId = $id ?? 'slider-' . uniqid();
@@ -44,12 +42,11 @@
     $isLive = $modelAttrs && str_contains($modelAttrs, '.live');
 
     $livewireId = isset($__livewire) ? $__livewire->getId() : null;
-
 @endphp
 
 <div
     @class([
-        'slider-wrapper',
+        'slider-wrapper w-full',
         'ps-10' => $vertical && $hasTooltips,
         'pb-8' => !$vertical && $hasPips,
         $attributes->get('class'),  // delegate the styles to this wrapper, while pass all other $attrs to the slider object
