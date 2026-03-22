@@ -144,8 +144,6 @@ Here's the approach see [[codesource below](#content-heres-the-full-blade-compon
 ])
 ```
 
-See that `name` prop? That's doing some detective work grabbing either `wire:model` or `x-model` automatically. Smart, right?
-
 Here's a cool trick we're using: we're wrapping the actual slider in a container div. Why? Because pips and tooltips need space! If you don't account for this, your tooltips will get cut off, and you'll spend an hour debugging CSS. Been there, done that.
 
 ```blade
