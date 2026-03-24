@@ -169,7 +169,7 @@ public function sortUsingAlgorithm($query, string $column, string $direction): ?
         return $query->orderByRaw("
             CASE
                 WHEN status = 'in_dev' THEN 1
-                WHEN status = 'done' THEN 2
+                WHEN status = 'ready' THEN 2
                 WHEN status = 'production' THEN 3
             END {$direction}
         ");
@@ -387,6 +387,17 @@ To add other targets, you can use `wire:target` as you would in regular usage:
     <!-- table content... -->
 </x-ui.table>
 ```
+you can completly customize the loading state stuffs by using the `loading` slot
+
+```blade
+<x-ui.table>
+{+    <x-slot:loading class="size-12 bg-white/5 rounded-lg">
+            <x-ui.icon.loading class="dark:invert size-10"/>
+    </x-slot:loading>+}
+</x-ui.table>
+
+```
+
 
 ## Ordering
 
