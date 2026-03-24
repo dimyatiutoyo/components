@@ -1020,7 +1020,7 @@ The default `body` teleport works well in most cases. Override it when rendering
 
 ## Component Props
 
-### Context (Main Component)
+### ui.context
 
 | Prop Name | Type | Default | Required | Description |
 |-----------|------|---------|----------|-------------|
@@ -1034,7 +1034,7 @@ The default `body` teleport works well in most cases. Override it when rendering
 | `resetFocus` | boolean | `false` | No | Return focus to trigger element when menu closes |
 | `class` | string | `''` | No | Additional CSS classes |
 
-### Context Item
+### ui.context.item
 
 | Prop Name | Type | Default | Required | Description |
 |-----------|------|---------|----------|-------------|
@@ -1050,14 +1050,14 @@ The default `body` teleport works well in most cases. Override it when rendering
 | `name` | string | `null` | No | Name attribute for radio groups |
 | `class` | string | `''` | No | Additional CSS classes |
 
-### Context Group
+### ui.context.group
 
 | Prop Name | Type | Default | Required | Description |
 |-----------|------|---------|----------|-------------|
 | `label` | string | `null` | No | Optional group label |
 | `class` | string | `''` | No | Additional CSS classes |
 
-### Context Submenu
+### ui.context.submenu
 
 | Prop Name | Type | Default | Required | Description |
 |-----------|------|---------|----------|-------------|
@@ -1065,7 +1065,7 @@ The default `body` teleport works well in most cases. Override it when rendering
 | `disabled` | boolean | `false` | No | Whether the submenu is disabled |
 | `class` | string | `''` | No | Additional CSS classes |
 
-### Context Separator
+### ui.context.separator
 
 | Prop Name | Type | Default | Required | Description |
 |-----------|------|---------|----------|-------------|
