@@ -109,14 +109,14 @@ Use Tailwind filters on the before image for different comparisons.
 
 ## Component Props
 
-### Image Diff
+### ui.image-diff
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `aspectRatio` | number | `1` | Aspect ratio (e.g., `16/9`, `4/3`, `1`) |
 | `vertical` | boolean | `false` | Enable vertical (top-to-bottom) comparison |
 
-### Before/After Images
+### ui.image-diff.before
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
@@ -124,3 +124,10 @@ Use Tailwind filters on the before image for different comparisons.
 | `alt` | string | `''` | Alt text for accessibility |
 | `class` | string | `''` | Additional classes (filters like `grayscale`, `blur-sm`) |
 
+### ui.image-diff.after
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `src` | string | required | Image source URL |
+| `alt` | string | `''` | Alt text for accessibility |
+| `class` | string | `''` | Additional classes (filters like `grayscale`, `blur-sm`) |
