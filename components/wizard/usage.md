@@ -665,3 +665,96 @@ Each step is a standalone Blade component that receives `$statePath` — use it 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `contained` | boolean | inherited | Remove border (inherited from parent `wizard`) |
+
+## Component API
+
+### `Wizard`
+
+The core state machine. Instantiated automatically by `HasWizard` — you interact with it through `$wizard` in your component and views.
+
+| Method | Returns | Description |
+|--------|---------|-------------|
+| `currentStep()` | `Step` | The active step object |
+| `currentKey()` | `string` | The active step key |
+| `steps()` | `Collection` | All registered steps |
+| `completed()` | `array` | Keys of completed steps |
+| `registry()` | `array` | Persisted step metadata (key → skippable) (intrenals) |
+| `isActive(string $key)` | `bool` | Whether the given key is the current step |
+| `isCompleted(string $key)` | `bool` | Whether the given step has been completed |
+| `isFirst()` | `bool` | Whether the current step is the first |
+| `isLast()` | `bool` | Whether the current step is the last |
+| `isSkippable(string $key)` | `bool` | Whether the given step can be skipped |
+| `next(bool $validate = true)` | `void` | Advance to the next step, optionally validating first |
+| `previous()` | `void` | Go back one step, unmarking it as completed |
+| `skip()` | `void` | Advance without validation if the current step is skippable |
+| `goTo(string $key)` | `void` | Jump to a specific step (only back, or to completed steps) |
+| `all()` | `array` | All form data keyed by step key — use at submit time |
+| `getState()` | `array` | Serializable scalar state — used internally by the synthesizer |
+
+
+### `Step`
+
+A value object describing a single wizard step. Created in `setupWizard()` and passed to the `Wizard`.
+
+**Constructor:**
+
+```php
+new Step(
+    key: 'account',           // string  — unique identifier
+    form: $this->account,     // Form    — the Livewire form instance for this step
+    view: 'path.to.view',     // string  — Blade component path for the step content
+    skippable: false,         // bool    — whether this step can be skipped (default: false)
+    validate: true,           // bool    — whether nextStep() triggers validation (default: true)
+)
+```
+
+| Method | Returns | Description |
+|--------|---------|-------------|
+| `view()` | `string` | The Blade component path — pass to `x-dynamic-component :component` |
+| `statePath()` | `string` | The Livewire property name owning the form — pass as `:statePath` |
+| `validate()` | `void` | Runs form validation if the form has rules. Safe to call unconditionally |
+| `all()` | `array` | All field values from the step's form |
+
+
+### `HasWizard`
+
+A trait for your Livewire component. Bootstraps the wizard on every request and exposes navigation actions you wire directly from Blade.
+
+**Required:** implement `setupWizard(): array` returning an array of `Step` objects.
+
+| Method | Description |
+|--------|-------------|
+| `setupWizard()` | **Abstract.** Return the array of `Step` objects defining your wizard |
+| `nextStep()` | Advance to the next step with validation |
+| `previousStep()` | Go back one step |
+| `skipStep()` | Skip the current step if it is skippable |
+| `goToStep(string $key)` | Jump to a specific step by key |
+
+```php
+use HasWizard;
+
+public Wizard $wizard; // declare this — HasWizard bootstraps it automatically
+
+protected function setupWizard(): array
+{
+    return [
+        new Step(key: 'account', form: $this->account, view: '...'),
+        new Step(key: 'profile', form: $this->profile, view: '...', skippable: true),
+    ];
+}
+```
+
+
+### `WizardSynthesizer`
+
+Handles Livewire's dehydration/hydration cycle for the `Wizard` object. **No configuration needed** — register it once in a service provider and it works transparently.
+
+```php
+// AppServiceProvider::boot()
+use App\Livewire\Synthesizers\WizardSynthesizer;
+use Livewire\Livewire;
+
+Livewire::propertySynthesizer(WizardSynthesizer::class);
+```
+
+> After registration, any Livewire component property typed as `Wizard` is automatically serialized between requests. The synthesizer persists only scalar state (current key, completed steps, registry) and lets `HasWizard` reattach the live form instances on every hydration — you never interact with it directly.
