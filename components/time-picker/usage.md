@@ -300,16 +300,6 @@ The special prop allows you to mark specific time slots with custom tags that ca
 
 Unlike `unavailable`, special slots are not disabled by default. They are simply annotated and exposed to the DOM
 
-@blade
-<x-demo class="flex justify-center">
-    <x-ui.time-picker
-        :special="['blocked' => '14:00,15:00']"
-        min="12:00"
-        max="18:00"
-    />
-</x-demo>
-@endblade
-
 ```blade
 <x-ui.time-picker 
     :special="['blocked' => '14:00,15:00']"
@@ -327,9 +317,20 @@ You can target slots directly using attribute selectors:
     color: yellowgreen
 }
 ```
+@blade
+<x-demo class="flex justify-center">
+    <x-ui.time-picker
+        :special="['blocked' => '14:00,15:00']"
+        min="12:00"
+        max="18:00"
+    />
+</x-demo>
+@endblade
 
 the `~=` is there to check if `data-special` value contain the targeted string
 
+> this pattern is better than simple tag management gives you a ton flexibility
+ 
 ## Advanced Examples
 
 ### Appointment Booking
