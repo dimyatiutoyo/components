@@ -294,6 +294,42 @@ Show a clear button when a value is selected. In `trigger="pills"` mode this cle
 <x-ui.time-picker disabled wire:model="time" />
 ```
 
+## Special Slots
+
+The special prop allows you to mark specific time slots with custom tags that can be used for styling, labeling, or advanced UI behavior.
+
+Unlike `unavailable`, special slots are not disabled by default. They are simply annotated and exposed to the DOM
+
+@blade
+<x-demo class="flex justify-center">
+    <x-ui.time-picker
+        :special="['blocked' => '14:00,15:00']"
+        min="12:00"
+        max="18:00"
+    />
+</x-demo>
+@endblade
+
+```blade
+<x-ui.time-picker 
+    :special="['blocked' => '14:00,15:00']"
+/>
+```
+
+**Styling with CSS**
+
+You can target slots directly using attribute selectors:
+```css
+
+[data-special~="blocked"] {
+    opacity: 0.5;
+    content: "blocked";
+    color: yellowgreen
+}
+```
+
+the `~=` is there to check if `data-special` value contain the targeted string
+
 ## Advanced Examples
 
 ### Appointment Booking
