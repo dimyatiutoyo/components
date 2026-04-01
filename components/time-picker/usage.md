@@ -146,8 +146,8 @@ By default the picker respects the browser's locale to determine 12 or 24-hour d
 
 @blade
 <x-demo class="flex gap-4 justify-center">
-    <x-ui.time-picker format="12-hour" placeholder="12-hour" class="w-44" />
-    <x-ui.time-picker format="24-hour" placeholder="24-hour" class="w-44" />
+    <x-ui.time-picker format="12-hour" placeholder="12-hour"  />
+    <x-ui.time-picker format="24-hour" placeholder="24-hour"  />
 </x-demo>
 @endblade
 
@@ -221,6 +221,11 @@ Disable specific times or ranges using a comma-separated string. Ranges use a `-
 
 Set the scroll position when the dropdown opens. Useful for jumping to a relevant time period without restricting the full range. Falls back to: selected time → nearest time to now.
 
+@blade
+<x-demo class="flex gap-4 justify-center">
+    <x-ui.time-picker open-to="10:00"  />
+</x-demo>
+@endblade
 ```blade
 <x-ui.time-picker open-to="10:00" wire:model="time" />
 ```
